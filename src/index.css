@@ -1047,3 +1047,115 @@ Header {
     top: calc(100vh - 50px);
   }
 }
+
+/* Loader */
+
+.loader-container {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, 50%);
+}
+
+.bar-loader rect {
+  transform-origin: bottom;
+  transform: scaleY(0);
+}
+.bar-loader rect:nth-child(even) {
+  transform-origin: top;
+}
+.bar-loader rect:nth-child(1) {
+  fill: #008a57;
+  animation: loading-bar-dynamic-1 3s linear infinite forwards;
+  transform: scaleY(0);
+}
+@keyframes loading-bar-dynamic-1 {
+  20% {
+    transform: scaleY(0);
+  }
+  26% {
+    transform: scaleY(1);
+  }
+  94% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0);
+  }
+}
+.bar-loader rect:nth-child(2) {
+  fill: #009465;
+  animation: loading-bar-dynamic-2 3s linear infinite forwards;
+  transform: scaleY(0);
+}
+@keyframes loading-bar-dynamic-2 {
+  26% {
+    transform: scaleY(0);
+  }
+  32% {
+    transform: scaleY(1);
+  }
+  88% {
+    transform: scaleY(1);
+  }
+  94% {
+    transform: scaleY(0);
+  }
+}
+.bar-loader rect:nth-child(3) {
+  fill: #009f65;
+  animation: loading-bar-dynamic-3 3s linear infinite forwards;
+  transform: scaleY(0);
+}
+@keyframes loading-bar-dynamic-3 {
+  32% {
+    transform: scaleY(0);
+  }
+  38% {
+    transform: scaleY(1);
+  }
+  82% {
+    transform: scaleY(1);
+  }
+  88% {
+    transform: scaleY(0);
+  }
+}
+.bar-loader rect:nth-child(4) {
+  fill: #00a96e;
+  animation: loading-bar-dynamic-4 3s linear infinite forwards;
+  transform: scaleY(0);
+}
+@keyframes loading-bar-dynamic-4 {
+  38% {
+    transform: scaleY(0);
+  }
+  44% {
+    transform: scaleY(1);
+  }
+  76% {
+    transform: scaleY(1);
+  }
+  82% {
+    transform: scaleY(0);
+  }
+}
+.bar-loader rect:nth-child(5) {
+  fill: #00b38c;
+  animation: loading-bar-dynamic-5 3s linear infinite forwards;
+  transform: scaleY(0);
+}
+@keyframes loading-bar-dynamic-5 {
+  44% {
+    transform: scaleY(0);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+  70% {
+    transform: scaleY(1);
+  }
+  76% {
+    transform: scaleY(0);
+  }
+}
