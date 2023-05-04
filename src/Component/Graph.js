@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import CanvasJSReact from "../canvasjs.react";
-import moment from "moment";
 import { HistoricalDataCollection } from "../HistoricalDataCollection";
+import { useGlobalContext } from "../Context";
 
 const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const Graph = ({ currentCurrency }) => {
+  const { todayCurrenciesRate } = useGlobalContext();
   const [historicalData, setHistoricalData] = useState([]);
   const [graphData, setGraphData] = useState([]);
-  const [graphLoading, setGraphLoading] = useState(true);
+  // const [graphLoading, setGraphLoading] = useState(true);
   const [width, setWidth] = useState(600);
 
   const fetchingHistoricalData = async (date) => {
@@ -21,23 +22,9 @@ const Graph = ({ currentCurrency }) => {
       },
     };
 
-    const historicalDataFetching = async () => {
-      const todayDate = moment().format("YYYY-MM-DD");
-      const response = await fetch(
-        `https://currencyscoop.p.rapidapi.com/historical?date=${todayDate}&base=INR`,
-        options
-      );
-
-      const data = await response.json();
-      const historicalObj = await data.response;
-      return historicalObj;
-    };
-
-    const currentDateData = await historicalDataFetching();
-
     const historicalData = HistoricalDataCollection();
     // merging currentdateData and historical data
-    const newData = historicalData.concat(currentDateData);
+    const newData = historicalData.concat(todayCurrenciesRate);
     setHistoricalData(newData);
   };
 
@@ -107,7 +94,7 @@ const Graph = ({ currentCurrency }) => {
   useEffect(() => {
     if (historicalData.length > 0) {
       settingGraphData();
-      setGraphLoading(false);
+      // setGraphLoading(false);
     }
   }, [currentCurrency, historicalData]);
 
@@ -189,9 +176,9 @@ const Graph = ({ currentCurrency }) => {
     ],
   };
 
-  if (graphLoading) {
-    return <div className="graph-skeleton"></div>;
-  }
+  // if (graphLoading) {
+  //   return <div className="graph-skeleton"></div>;
+  // }
 
   return (
     <>

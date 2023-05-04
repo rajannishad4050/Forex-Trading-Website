@@ -1,4 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
+import { currencyCodeNames } from "./currencyCodeNames";
+import moment from "moment";
 
 const AppContext = React.createContext();
 
@@ -6,6 +8,7 @@ const AppProvider = ({ children }) => {
   const [currencyData, setCurrencyData] = useState([]);
   const [Loading, setLoading] = useState(true);
   const [searchFilterData, setSearchFilterData] = useState([]);
+  const [todayCurrenciesRate, setTodayCurrenciesRate] = useState();
   const [userData, setUserData] = useState({
     AquiredCurrency: [],
     watchList: [],
@@ -40,48 +43,48 @@ const AppProvider = ({ children }) => {
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Host": "currencyscoop.p.rapidapi.com",
       "X-RapidAPI-Key": "bf300f87abmsh24011b6bb15af02p18b479jsn2542ba30b834",
+      "X-RapidAPI-Host": "currencyapi-net.p.rapidapi.com",
     },
   };
 
   const fetchingLatestCurrencyRate = async () => {
     const response = await fetch(
-      "https://currencyscoop.p.rapidapi.com/latest?base=INR",
+      "https://currencyapi-net.p.rapidapi.com/rates?output=JSON&base=USD",
       options
     );
     const data = await response.json();
-    const rates = await data.response.rates;
-    return rates;
+    return data.rates;
   };
 
-  const fectchingCurrencyCode = async () => {
-    const response = await fetch(
-      "https://currencyscoop.p.rapidapi.com/currencies",
-      options
-    );
-    const data = await response.json();
-    const currencyList = await data.response.fiats;
-    return currencyList;
+  const settingTodayCurrienciesRate = (ratesObj) => {
+    // converted obj to array
+    const ratesArray = Object.entries(ratesObj);
+    const modifiedRatesArray = ratesArray.map((item) => {
+      return [item[0], item[1] / ratesObj.INR];
+    });
+    //converted array to obj back
+    const rupeeBaseRates = Object.fromEntries(modifiedRatesArray);
+    setTodayCurrenciesRate({
+      date: moment().format("YYYY-MM-DD"),
+      rates: rupeeBaseRates,
+    });
   };
 
-  const joiningBothArray = (currencyList, rates) => {
-    const currencyListArray = Object.values(currencyList);
-    const ratesArray = Object.entries(rates);
+  const joiningBothArray = (currencyCodeNames, ratesObj) => {
+    // convertering object to array
+    const ratesArray = Object.entries(ratesObj);
 
-    let i = 0;
-    for (i; i < ratesArray.length; i++) {
-      const newArray = currencyListArray.filter((obj) => {
-        return obj.currency_code === ratesArray[i][0];
+    for (let i = 0; i < ratesArray.length; i++) {
+      const newArray = currencyCodeNames.filter((item) => {
+        return item[0] === ratesArray[i][0];
       });
       if (newArray.length > 0) {
-        const { currency_name, currency_code, countries } = newArray[0];
         setCurrencyData((prev) =>
           prev.concat({
-            currencyCode: currency_code,
-            currencyName: currency_name,
-            countryName: countries,
-            rate: 1 / ratesArray[i][1],
+            currencyCode: ratesArray[i][0],
+            currencyName: newArray[0][1],
+            rate: ratesObj.INR / ratesArray[i][1],
           })
         );
       }
@@ -89,11 +92,11 @@ const AppProvider = ({ children }) => {
   };
 
   useEffect(async () => {
-    const rates = await fetchingLatestCurrencyRate();
-    const currencyList = await fectchingCurrencyCode();
+    const ratesObj = await fetchingLatestCurrencyRate();
+    settingTodayCurrienciesRate(ratesObj);
 
     // making rates array and currency array into single array
-    joiningBothArray(currencyList, rates);
+    joiningBothArray(currencyCodeNames, ratesObj);
     setLoading(false);
   }, []);
 
@@ -106,6 +109,7 @@ const AppProvider = ({ children }) => {
         setUserData,
         searchFilterData,
         setSearchFilterData,
+        todayCurrenciesRate,
       }}
     >
       {children}
