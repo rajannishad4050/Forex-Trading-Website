@@ -110,7 +110,7 @@ const TradingChild = ({ id }) => {
   }, [currentCurrency]);
 
   if (tradingLoading) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
   return (
