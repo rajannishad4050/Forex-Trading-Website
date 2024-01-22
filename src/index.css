@@ -148,6 +148,7 @@ Header {
   border-radius: 3px;
   cursor: pointer;
   gap: 50px;
+  background-color: white;
 }
 
 .search-icon {
@@ -496,6 +497,7 @@ Header {
   margin-top: 40px;
   padding-block: 10px;
   margin-bottom: 20px;
+  border: 1px solid rgb(182, 182, 182);
 }
 
 .user-details-header {
@@ -545,12 +547,13 @@ Header {
 
 .currencies {
   width: 250px;
-  height: 441px;
+  height: 460px;
   overflow: auto;
   box-shadow: 0 0 4px 1px rgb(0 0 0 / 1%), 0 3px 24px rgb(48 51 51 / 9%);
   -ms-overflow-style: none;
   scrollbar-width: none;
   background: #ffff;
+  border: 1px solid rgb(182, 182, 182);
 }
 
 .currencies::-webkit-scrollbar {
@@ -576,10 +579,13 @@ Header {
 
 .currency-details-btn {
   border: none;
-  background: inherit;
-  font-size: 0.95rem;
+  background: rgb(27, 199, 173);
+  font-size: 0.9rem;
   font-weight: 400;
-  color: inherit;
+  padding-inline: 10px;
+  padding-block: 4px;
+  color: white;
+  border-radius: 4px;
 }
 
 @media (max-width: 1000px) {
