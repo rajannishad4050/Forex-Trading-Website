@@ -33,22 +33,10 @@ const UserProfile = () => {
     }
   }, [Loading]);
 
-  if (userLoading) {
+  if (watchList) {
     return (
       <div className="loader-container">
-        <svg
-          width="180"
-          height="50"
-          viewBox="0 0 291 108"
-          xmlns="http://www.w3.org/2000/svg"
-          class="bar-loader"
-        >
-          <rect width="43" height="108" />
-          <rect x="62" width="43" height="108" />
-          <rect x="124" width="43" height="108" />
-          <rect x="186" width="43" height="108" />
-          <rect x="248" width="43" height="108" />
-        </svg>
+        <div className="loader"></div>
       </div>
     );
   }
