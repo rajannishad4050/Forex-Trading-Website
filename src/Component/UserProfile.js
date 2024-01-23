@@ -33,7 +33,7 @@ const UserProfile = () => {
     }
   }, [Loading]);
 
-  if (watchList) {
+  if (userLoading) {
     return (
       <div className="loader-container">
         <div className="loader"></div>
