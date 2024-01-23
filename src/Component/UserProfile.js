@@ -135,7 +135,7 @@ const UserProfile = () => {
                         to={`/trading/${item.currencyCode}`}
                         style={{ textDecoration: "none", color: "inherit" }}
                       >
-                        Detail
+                        buy
                       </Link>
                     </button>
                   </div>
