@@ -103,7 +103,7 @@ const UserProfile = () => {
                       style={{ textDecoration: "none", color: "inherit" }}
                     >
                       <button className="currency-details-btn cursor-pointer">
-                        Detail
+                        Buy
                       </button>
                     </Link>
                   </div>
