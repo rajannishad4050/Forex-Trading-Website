@@ -24,6 +24,16 @@ p {
   padding: 0;
 }
 
+a {
+  color: initial;
+  background-color: transparent;
+  font-size: inherit;
+  font: inherit;
+  vertical-align: baseline;
+  border: none;
+  text-decoration: none;
+}
+
 /* custom properties */
 
 /* uttilities classes */
@@ -112,6 +122,14 @@ p {
   display: none;
 }
 
+.button {
+  all: unset;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
 /* header */
 
 Header {
@@ -169,7 +187,16 @@ Header {
   font-size: 1rem;
 }
 
-.cancel-icon {
+.search-clear-button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.search-clear-icon {
   width: 24px;
   fill: #808080;
 }
@@ -227,6 +254,10 @@ Header {
 
 .bar-line + .bar-line {
   margin-top: 5px;
+}
+
+.sidebar-cancel-button {
+  display: none;
 }
 
 .header-nav {
@@ -295,6 +326,18 @@ Header {
     cursor: pointer;
   }
 
+  .sidebar-cancel-button {
+    display: block;
+    width: fit-content;
+    background: transparent;
+    border: none;
+  }
+
+  .nav-cancel-btn {
+    display: block;
+    width: 35px;
+  }
+
   .header-nav {
     position: absolute;
     top: 0;
@@ -307,12 +350,6 @@ Header {
 
   .header-list-container {
     margin-inline: auto;
-  }
-
-  .nav-cancel-btn {
-    display: block;
-    width: 35px;
-    margin: 10px 10px;
   }
 
   .nav-visible {
@@ -421,7 +458,7 @@ Header {
     width: 18px;
   }
 
-  .cancel-icon {
+  .search-clear-icon {
     width: 18px;
   }
 

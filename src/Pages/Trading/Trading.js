@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import TradingChild from "./TradingChild";
+import TradingChild from "./Components/TradingChild";
 
 const Trading = () => {
   const { id } = useParams();

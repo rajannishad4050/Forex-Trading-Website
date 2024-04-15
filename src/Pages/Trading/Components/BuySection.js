@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useGlobalContext } from "../Context";
-import CurrencyConvert from "../CurrencyConveter";
-import PopUP from "./PopUP";
+import { useGlobalContext } from "../../../Context";
+import CurrencyConvert from "../../../Utills/CurrencyConveter";
+import PopUP from "../../../Component/PopUP";
 
 const BuySection = ({ currentCurrency, aquiredAmount, aquiredCurrencies }) => {
   const { userData, setUserData, currencyData } = useGlobalContext();

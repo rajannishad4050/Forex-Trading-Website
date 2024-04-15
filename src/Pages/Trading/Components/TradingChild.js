@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useGlobalContext } from "../Context";
+import { useGlobalContext } from "../../../Context";
 import BuySection from "./BuySection";
 import SellSection from "./SellSection";
-import Graph from "./Graph";
+import Graph from "../../../Component/Graph";
 
 const TradingChild = ({ id }) => {
   const { currencyData, Loading, userData, setUserData } = useGlobalContext();
