@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import LoginUser from "../../../API-Calls/LoginUser";
 import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../../Context";
+import ButtonLoader from "../../../Component/ButtonLoader";
 
 function DemoLoginSection() {
   const navigate = useNavigate();
   const { setAuthToken } = useGlobalContext();
+  const [loading, setLoading] = useState(false);
 
   const onDemoLoginButtonClicked = async () => {
+    setLoading(true);
     const username = "demo";
     const password = "qwerty";
     const response = await LoginUser(username, password);
@@ -18,6 +21,7 @@ function DemoLoginSection() {
     }
 
     if (response.status === "error") {
+      setLoading(false);
       alert("server error");
     }
   };
@@ -28,10 +32,10 @@ function DemoLoginSection() {
       <div className="demo-login-btn-container">
         <button
           type="button"
-          className="demo-login-btn"
+          className="demo-login-btn flex justify-center items-center"
           onClick={onDemoLoginButtonClicked}
         >
-          Demo Login
+          {loading ? <ButtonLoader /> : "Demo Login"}
         </button>
       </div>
     </div>

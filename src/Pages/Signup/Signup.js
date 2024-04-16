@@ -4,6 +4,7 @@ import "../../Styles/signup.css";
 import signupUser from "../../API-Calls/signupUser";
 import { useGlobalContext } from "../../Context";
 import { Link, useNavigate } from "react-router-dom";
+import ButtonLoader from "../../Component/ButtonLoader";
 
 function Signup() {
   const { setAuthToken } = useGlobalContext();
@@ -11,6 +12,7 @@ function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [reenterPassword, setReenterPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   //form validation
   const [usernameAlreadyExist, setUsernameAlreadyExist] = useState(false);
@@ -23,6 +25,7 @@ function Signup() {
     e.preventDefault();
 
     if (password === reenterPassword) {
+      setLoading(true);
       setPasswordDoesNotMatch(false);
 
       const response = await signupUser({ email, username, password });
@@ -33,14 +36,17 @@ function Signup() {
       }
 
       if (response.status === "email already exists") {
+        setLoading(false);
         setEmailAlreadyExist(true);
       }
 
       if (response.status === "username already exists") {
+        setLoading(false);
         setUsernameAlreadyExist(true);
       }
 
       if (response.status === "error") {
+        setLoading(false);
         alert("server error");
       }
     } else {
@@ -111,8 +117,11 @@ function Signup() {
         {passwordDoesNotMatch ? (
           <p className="warnings">re-entered password does not match</p>
         ) : null}
-        <button type="submit" className="signup-button cursor-pointer">
-          Signup
+        <button
+          type="submit"
+          className="signup-button cursor-pointer justify-center items-center"
+        >
+          {loading ? <ButtonLoader /> : "Signup"}
         </button>
       </form>
       <div className="login-link">

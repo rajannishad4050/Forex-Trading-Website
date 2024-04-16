@@ -74,7 +74,7 @@ const TradingChild = ({ id }) => {
     if (!inWatchlist) {
       setUserData((prevState) => ({
         ...prevState,
-        watchList: [...prevState.Watchlist, currentCurrency.currencyCode],
+        watchList: prevState.watchList.concat(currentCurrency.currencyCode),
       }));
       setInWatchlist(true);
     }
@@ -123,6 +123,14 @@ const TradingChild = ({ id }) => {
           </div>
           <div className="graph-container">
             <Graph currentCurrency={currentCurrency.currencyCode} />
+            {currentCurrency.currencyCode === "INR" ? (
+              <p>
+                Rupees graph remain constant 1 rupee unlike other currency
+                because Indian rupees is base of all currency in this app you
+                can see for how much Indian rupees you can buy foreign currency
+                currently and in past.
+              </p>
+            ) : null}
           </div>
         </div>
         <div className="trading-section-b">

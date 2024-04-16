@@ -3,11 +3,13 @@ import Logo from "../../../Assets/Logo";
 import LoginUser from "../../../API-Calls/LoginUser";
 import { useGlobalContext } from "../../../Context";
 import { Link, useNavigate } from "react-router-dom";
+import ButtonLoader from "../../../Component/ButtonLoader";
 
 function LoginSection() {
   const { setAuthToken } = useGlobalContext();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Form validation
   const [usernameDoesNotExist, setUsernameDoesNotExist] = useState();
@@ -18,6 +20,7 @@ function LoginSection() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (username.length > 0 && password.length > 0) {
+      setLoading(true);
       const response = await LoginUser(username, password);
 
       if (response.status === "success") {
@@ -26,14 +29,17 @@ function LoginSection() {
       }
 
       if (response.status === "username does not exist") {
+        setLoading(false);
         setUsernameDoesNotExist(true);
       }
 
       if (response.status === "password is incorrect") {
+        setLoading(false);
         setPasswordIsIncorrect(true);
       }
 
       if (response.status === "error") {
+        setLoading(false);
         alert("server error");
       }
     } else {
@@ -79,8 +85,11 @@ function LoginSection() {
       {passwordIsIncorrect ? (
         <p className="warnings">Password is incorrect</p>
       ) : null}
-      <button type="submit" className="login-button cursor-pointer">
-        Log in
+      <button
+        type="submit"
+        className="login-button cursor-pointer flex justify-center items-center"
+      >
+        {loading ? <ButtonLoader /> : "Login"}
       </button>
       <div className="sign-up-text">
         Don't have account? <Link to="/signup">Sign up</Link>

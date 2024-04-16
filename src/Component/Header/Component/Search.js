@@ -17,10 +17,33 @@ function Search() {
 
     if (searchedTextLength > 0) {
       const filteredItem = currencyData.filter((currency) => {
-        return currency.currencyName
-          .slice(0, searchedTextLength)
-          .toLowerCase()
-          .includes(searchedInputText.toLowerCase());
+        const currencyNameFirstWord = currency.currencyName
+          .split(" ")
+          .slice(0)
+          .join(" ");
+        const currencyNameSecondWord = currency.currencyName
+          .split(" ")
+          .slice(1)
+          .join(" ");
+        const currencyNameThirdWord = currency.currencyName
+          .split(" ")
+          .slice(2)
+          .join(" ");
+
+        return (
+          currencyNameFirstWord
+            .slice(0, searchedTextLength)
+            .toLowerCase()
+            .includes(searchedInputText.toLowerCase()) ||
+          currencyNameSecondWord
+            .slice(0, searchedTextLength)
+            .toLowerCase()
+            .includes(searchedInputText.toLowerCase()) ||
+          currencyNameThirdWord
+            .slice(0, searchedTextLength)
+            .toLowerCase()
+            .includes(searchedInputText.toLowerCase())
+        );
       });
       setSearchedData(filteredItem);
       setShowSearchedData(true);
@@ -40,6 +63,7 @@ function Search() {
     if (!myRef?.current?.contains(e.target)) {
       setSearchedData([]);
       setInputValue("");
+      setShowSearchedData(false);
     }
   };
 
@@ -70,29 +94,27 @@ function Search() {
         {searchedData.length > 0 ? (
           <ul className="some-result">
             {searchedData.map((item, index) => {
-              if (index < 8) {
-                return (
-                  <Link
-                    key={index}
-                    onClick={() => {
-                      setSearchedData([]);
-                      setInputValue("");
-                      setShowSearchedData(false);
-                    }}
-                    to={`/trading/${item.currencyCode}`}
-                    style={{ textDecoration: "none", color: "inherit" }}
-                  >
-                    <div key={index} className="found-item cursor-pointer">
-                      <li>{item.currencyName}</li>
-                      <div className="item-code clr-gray">
-                        {item.currencyCode}
-                      </div>
+              // if (index < 8) {
+              return (
+                <Link
+                  key={index}
+                  onClick={() => {
+                    setSearchedData([]);
+                    setInputValue("");
+                    setShowSearchedData(false);
+                  }}
+                  to={`/trading/${item.currencyCode}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <div key={index} className="found-item cursor-pointer">
+                    <li>{item.currencyName}</li>
+                    <div className="item-code clr-gray">
+                      {item.currencyCode}
                     </div>
-                  </Link>
-                );
-              } else {
-                return null;
-              }
+                  </div>
+                </Link>
+              );
+              // }
             })}
           </ul>
         ) : (
