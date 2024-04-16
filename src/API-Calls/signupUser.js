@@ -2,11 +2,14 @@ import axios from "axios";
 
 async function signupUser({ email, username, password }) {
   try {
-    const response = await axios.post("http://localhost:4000/register", {
-      email,
-      username,
-      password,
-    });
+    const response = await axios.post(
+      "https://forex-trading-backend-dun.vercel.app/register",
+      {
+        email,
+        username,
+        password,
+      }
+    );
 
     return { status: "successfully registered", token: response.data.token };
   } catch (error) {
