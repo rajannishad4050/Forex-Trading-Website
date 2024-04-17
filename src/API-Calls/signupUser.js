@@ -3,7 +3,7 @@ import axios from "axios";
 async function signupUser({ email, username, password }) {
   try {
     const response = await axios.post(
-      "https://forex-trading-backend-dun.vercel.app/register",
+      "https://forex-trading-backend.netlify.app/.netlify/functions/api/register",
       {
         email,
         username,
